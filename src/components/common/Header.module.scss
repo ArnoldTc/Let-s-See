@@ -1,0 +1,12 @@
+.navbar {
+  position: absolute;
+  padding-left: 5%;
+}
+.logo {
+  width: 150px;
+}
+@media (max-width: 650px) {
+  .logo {
+    width: 100px;
+  }
+}

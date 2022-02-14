@@ -1,0 +1,36 @@
+.card {
+  box-shadow: 0px 0px 10px 1px;
+  margin: 10px 0;
+  height: 450px;
+}
+.shadow {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-content: space-between;
+  .title,
+  .date {
+    display: none;
+  }
+}
+.content {
+  display: inline-grid;
+  align-items: center;
+  text-align: center;
+}
+.shadow:hover {
+  background-color: #000000a4;
+  .title,
+  .date {
+    display: grid;
+    color: #8f8e8e;
+  }
+}
+h3 {
+  text-transform: capitalize;
+}
+h2 {
+  text-transform: capitalize;
+}
+@media (max-width: 650px) {
+}
