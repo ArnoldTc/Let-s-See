@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Col, Nav } from 'react-bootstrap';
 import styles from './CreditsData.module.scss';
-
+import logo from '../../common/no_image.svg';
 
 type PersonInfo = {
-  backgroundImage: string;
+  backgroundPoster: string;
   name: string;
   character: string;
   id: number;
 };
 
-const Person: React.FC<PersonInfo> = ({ name, backgroundImage, character, id }) => (
+const Person: React.FC<PersonInfo> = ({ name, backgroundPoster, character, id }) => (
   <Col md="3" lg>
     <Nav.Link href={'/actor/' + id}>
       <div className={styles.castCard}>
@@ -18,8 +18,10 @@ const Person: React.FC<PersonInfo> = ({ name, backgroundImage, character, id }) 
           style={{
             height: '300px',
             width: '200px',
-            backgroundImage: `url(https://image.tmdb.org/t/p/w200/${backgroundImage})`,
+            backgroundImage: backgroundPoster,
+            backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain',
           }}
         >
           <div className={styles.personCard}>

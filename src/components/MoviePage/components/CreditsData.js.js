@@ -3,6 +3,7 @@ import { Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Person from './person';
+import logo from '../../common/no_image.svg';
 
 export default function CreditsData(props) {
   const [persons, setPersons] = useState([]);
@@ -30,14 +31,25 @@ export default function CreditsData(props) {
     <Row>
       {persons &&
         persons.slice(0, 10).map(personData => {
-          return (
-            <Person
-              backgroundImage={personData.profile_path}
-              name={personData.name}
-              character={personData.character}
-              id={personData.id}
-            />
-          );
+          if (personData.profile_path == null) {
+            return (
+              <Person
+                backgroundPoster={`url(${logo})`}
+                name={personData.name}
+                character={personData.character}
+                id={personData.id}
+              />
+            );
+          } else {
+            return (
+              <Person
+                backgroundPoster={`url(https://image.tmdb.org/t/p/w200/${personData.profile_path})`}
+                name={personData.name}
+                character={personData.character}
+                id={personData.id}
+              />
+            );
+          }
         })}
     </Row>
   );

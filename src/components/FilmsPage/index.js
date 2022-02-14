@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './FilmsPage.module.scss';
 import Movie from './components/MovieCard';
 import { TextField } from '@mui/material';
+import logo from '../common/no_image.svg';
 
 export default function FilmsPage() {
   const [filmsData, setFilmsData] = useState([]);
@@ -57,14 +58,23 @@ export default function FilmsPage() {
         <Row>
           {filmsData &&
             filmsData.slice(0, 20).map(filmData => {
+              let theimage;
+              if (filmData.poster_path == null) {
+                theimage = `url(${logo})`;
+              } else {
+                theimage = `url(https://image.tmdb.org/t/p/w300/${filmData.poster_path})`;
+              }
+              if (filmData.release_date == undefined) {
+                filmData.release_date = ' ';
+              }
               return (
-                  <Movie
-                    id={filmData.id}
-                    title={filmData.title}
-                    filmId={filmData.id}
-                    date={filmData.release_date.replace('-', '.').replace('-', '.')}
-                    image={filmData.poster_path}
-                  />
+                <Movie
+                  id={filmData.id}
+                  title={filmData.title}
+                  filmId={filmData.id}
+                  date={filmData.release_date}
+                  image={theimage}
+                />
               );
             })}
         </Row>

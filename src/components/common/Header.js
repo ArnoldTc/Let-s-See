@@ -1,9 +1,8 @@
-import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import styles from './Header.module.scss';
 import { ReactComponent as Logo } from './tmdb.svg';
 
-function Header(props) {
+function Header() {
 
   return (
     <Navbar  expand="md" className={styles.navbar}>

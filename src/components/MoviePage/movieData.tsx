@@ -5,30 +5,30 @@ import { Col, Row } from 'react-bootstrap';
 import styles from './MoviePage.module.scss';
 import { useParams } from 'react-router';
 import CreditsData from './components/CreditsData.js';
-import logo from '../common/no_image.svg';
 
-export default function MoviePage() {
-  const [title, setTitle] = useState();
-  const [tagline, setTagline] = useState();
-  const [overview, setOverview] = useState();
-  const [date, setDate] = useState();
-  const [image, setImage] = useState('');
-  const [image2, setImage2] = useState('');
-  const [ratings, setRatings] = useState();
-  const [runtime, setRuntime] = useState();
-  const [budget, setBudget] = useState('');
-  const [revenue, setRevenue] = useState('');
-  const { id } = useParams();
-  const movieId = id;
-
-  const timeConvert = n => {
+/*
+const { id } = useParams();
+type MovieInfo = {
+    title: string;
+    tagline: string;
+    overview: string;
+    date: string;
+    image: string;
+    ratings: string;
+    runtime: string;
+    budget: string;
+    revenue: string;
+    movieId: string;
+  };
+  const timeConvert = (n) =>  {
     var num = n;
-    var hours = num / 60;
+    var hours = (num / 60);
     var rhours = Math.floor(hours);
     var minutes = (hours - rhours) * 60;
     var rminutes = Math.round(minutes);
-    return rhours + 'h ' + rminutes + 'm';
-  };
+    return rhours + "h " + rminutes + "m";
+    }
+const Movie: React.FC<MovieInfo> = ({ title, tagline, overview, date, image, ratings, runtime, budget, revenue, movieId, }) => (
   useEffect(() => {
     var options = {
       method: 'GET',
@@ -42,16 +42,10 @@ export default function MoviePage() {
         setTitle(response.data.title);
         setTagline(response.data.tagline);
         setOverview(response.data.overview);
-        setDate(response.data.release_date.replace('-', '.').replace('-', '.'));
-        if (response.data.poster_path != null) {
-          setImage('url(https://image.tmdb.org/t/p/original/'+response.data.poster_path+')');
-          setImage2('url(https://image.tmdb.org/t/p/w300/' + response.data.poster_path + ')');
-        } else {
-          setImage(`url(${logo})`);
-          setImage2(`url(${logo})`);
-        }
+        setDate(response.data.release_date.replace("-", ".").replace("-", "."));
+        setImage(response.data.poster_path);
         setRatings(response.data.vote_average);
-        setRuntime(timeConvert(response.data.runtime));
+        setRuntime(timeConvert(response.data.runtime))
         //setRuntime(parseFloat(response.data.runtime / 60).toFixed(2) + ' h');
         setBudget(response.data.budget);
         setRevenue(response.data.revenue);
@@ -66,7 +60,7 @@ export default function MoviePage() {
     <div
       className={styles.background}
       style={{
-        backgroundImage: image,
+        backgroundImage: `url(https://image.tmdb.org/t/p/original/${image})`,
       }}
     >
       <div className={styles.bgImageShadow}>
@@ -76,7 +70,7 @@ export default function MoviePage() {
               <Col md="4">
                 <div
                   style={{
-                    backgroundImage: image2,
+                    backgroundImage: `url(https://image.tmdb.org/t/p/w300/${image})`,
                   }}
                   className={styles.movieImage}
                 />
@@ -115,3 +109,4 @@ export default function MoviePage() {
     </div>
   );
 }
+*/

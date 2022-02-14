@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Col, Nav } from 'react-bootstrap';
 import styles from './CardHandler.module.scss';
+import logo from '../common/no_image.svg';
 
 type MovieInfo = {
   id: string;
   image: string;
   title: string;
-  date: number;
+  date: string;
 };
 
 const Movie: React.FC<MovieInfo> = ({ id, image, title, date }) => (
@@ -15,7 +16,7 @@ const Movie: React.FC<MovieInfo> = ({ id, image, title, date }) => (
       <div
         className={styles.card}
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/w300/${image})`,
+          backgroundImage: image,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -24,7 +25,7 @@ const Movie: React.FC<MovieInfo> = ({ id, image, title, date }) => (
         <Col className={styles.shadow}>
           <div className={styles.content}>
             <h3 className={styles.title}>{title}</h3>
-            <h2 className={styles.date}>{date}</h2>
+            <h2 className={styles.date}>{date.replace('-', '.').replace('-', '.')}</h2>
           </div>
         </Col>
       </div>

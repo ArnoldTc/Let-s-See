@@ -9,15 +9,13 @@ import Header from './components/common/Header';
 
 export default function App() {
   return (
-    <>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<IndexPage />} />
-          <Route path="/movie/:id" element={<MoviePage />} />
-          <Route path="/actor/:id" element={<PeoplePage />} />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<IndexPage />} />
+        <Route path="/movie/:id" element={<MoviePage />} />
+        <Route path="/actor/:id" element={<PeoplePage />} />
+      </Routes>
+    </Router>
   );
 }
