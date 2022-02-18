@@ -64,7 +64,7 @@ export default function FilmsPage() {
               } else {
                 theimage = `url(https://image.tmdb.org/t/p/w300/${filmData.poster_path})`;
               }
-              if (filmData.release_date == undefined) {
+              if (filmData.release_date === undefined) {
                 filmData.release_date = ' ';
               }
               return (

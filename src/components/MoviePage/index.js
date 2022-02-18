@@ -1,117 +1,67 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
 import axios from 'axios';
-import { Col, Row } from 'react-bootstrap';
-import styles from './MoviePage.module.scss';
 import { useParams } from 'react-router';
-import CreditsData from './components/CreditsData.js';
 import logo from '../common/no_image.svg';
+import Movie from './MoviePage';
 
 export default function MoviePage() {
-  const [title, setTitle] = useState();
-  const [tagline, setTagline] = useState();
-  const [overview, setOverview] = useState();
-  const [date, setDate] = useState();
-  const [image, setImage] = useState('');
-  const [image2, setImage2] = useState('');
-  const [ratings, setRatings] = useState();
-  const [runtime, setRuntime] = useState();
-  const [budget, setBudget] = useState('');
-  const [revenue, setRevenue] = useState('');
-  const { id } = useParams();
-  const movieId = id;
+    const [movieData, setMovieData] = useState([]);
+    const { id } = useParams();
+    const movieId = id;
 
-  const timeConvert = n => {
-    var num = n;
-    var hours = num / 60;
-    var rhours = Math.floor(hours);
-    var minutes = (hours - rhours) * 60;
-    var rminutes = Math.round(minutes);
-    return rhours + 'h ' + rminutes + 'm';
-  };
-  useEffect(() => {
-    var options = {
-      method: 'GET',
-      url: 'https://api.themoviedb.org/3/movie/' + movieId,
-      params: { api_key: 'b1039975e8b3741cdafd37bbf1ab2720' },
-    };
+    useEffect(() => {
+        var options = {
+            method: 'GET',
+            url: 'https://api.themoviedb.org/3/movie/' + movieId,
+            params: { api_key: 'b1039975e8b3741cdafd37bbf1ab2720' },
+        };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        setTitle(response.data.title);
-        setTagline(response.data.tagline);
-        setOverview(response.data.overview);
-        setDate(response.data.release_date.replace('-', '.').replace('-', '.'));
-        if (response.data.poster_path != null) {
-          setImage('url(https://image.tmdb.org/t/p/original/'+response.data.poster_path+')');
-          setImage2('url(https://image.tmdb.org/t/p/w300/' + response.data.poster_path + ')');
-        } else {
-          setImage(`url(${logo})`);
-          setImage2(`url(${logo})`);
-        }
-        setRatings(response.data.vote_average);
-        setRuntime(timeConvert(response.data.runtime));
-        //setRuntime(parseFloat(response.data.runtime / 60).toFixed(2) + ' h');
-        setBudget(response.data.budget);
-        setRevenue(response.data.revenue);
-        console.log(response.data);
-        localStorage.setItem('path', response.data.poster_path);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, []);
-  return (
-    <div
-      className={styles.background}
-      style={{
-        backgroundImage: image,
-      }}
-    >
-      <div className={styles.bgImageShadow}>
-        <div className={styles.grid}>
-          <Container>
-            <Row>
-              <Col md="4">
-                <div
-                  style={{
-                    backgroundImage: image2,
-                  }}
-                  className={styles.movieImage}
-                />
-              </Col>
-              <Col md="8">
-                <h1>{title}</h1>
-                <h3>{tagline}</h3>
-                <h5>{date}</h5>
-                <br />
-                <h5>{overview}</h5>
-                <br />
-                <h5 className={styles.movieData}>Ratings:</h5>
-                <h6>{ratings}</h6>
-                <h5 className={styles.movieData}>Runtime:</h5>
-                <h6>{runtime}</h6>
-                <h5 className={styles.movieData}>Budget:</h5>
-                <h6>
-                  {budget.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}
-                </h6>
-                <h5 className={styles.movieData}>Revenue:</h5>
-                <h6>
-                  {revenue.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}
-                </h6>
-              </Col>
-            </Row>
-            <CreditsData />
-          </Container>
-        </div>
-      </div>
-    </div>
-  );
+        axios
+            .request(options)
+            .then(function (response) {
+                setMovieData(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    return (
+        <Movie
+            title={movieData.title}
+            tagline={movieData.tagline}
+            overview={movieData.overview}
+            date={
+                movieData.release_date === undefined ? ' ' : movieData.release_date.replace('-', '.').replace('-', '.')
+            }
+            image={
+                movieData.poster_path === undefined
+                    ? `url(${logo})`
+                    : 'url(https://image.tmdb.org/t/p/original/' + movieData.poster_path + ')'
+            }
+            image2={
+                movieData.poster_path === undefined
+                    ? `url(${logo})`
+                    : 'url(https://image.tmdb.org/t/p/w300/' + movieData.poster_path + ')'
+            }
+            ratings={movieData.vote_average}
+            runtime={movieData.runtime}
+            budget={
+                movieData.budget !== undefined
+                    ? movieData.budget.toLocaleString('en-US', {
+                          style: 'currency',
+                          currency: 'USD',
+                      })
+                    : ''
+            }
+            revenue={
+                movieData.revenue !== undefined
+                    ? movieData.revenue.toLocaleString('en-US', {
+                          style: 'currency',
+                          currency: 'USD',
+                      })
+                    : ' '
+            }
+        />
+    );
 }
