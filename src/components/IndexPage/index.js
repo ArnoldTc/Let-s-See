@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FilmsPage from '../FilmsPage';
+import FilmsPage from 'components/FilmsPage';
 
 export default function IndexPage() {
   return <FilmsPage />;

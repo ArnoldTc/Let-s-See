@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
-import logo from '../common/no_image.svg';
+import logo from 'components/common/no_image.svg';
 import Movie from './MoviePage';
 
 export default function MoviePage() {

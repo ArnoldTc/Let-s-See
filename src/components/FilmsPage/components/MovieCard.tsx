@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Col, Nav } from 'react-bootstrap';
 import styles from './CardHandler.module.scss';
-import logo from '../common/no_image.svg';
+import logo from 'components/common/no_image.svg';
 
 type FilmInfo = {
     id: string;

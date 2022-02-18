@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './FilmsPage.module.scss';
 import Movie from './components/MovieCard';
 import { TextField } from '@mui/material';
-import logo from '../common/no_image.svg';
+import logo from 'components/common/no_image.svg';
 
 export default function FilmsPage() {
   const [filmsData, setFilmsData] = useState([]);
